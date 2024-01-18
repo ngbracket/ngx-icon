@@ -6,7 +6,26 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate": "svg-to-ts-constants"
+  },
+  "svg-to-ts": {
+    "conversionType": "constants",
+    "srcFiles": [
+      "./projects/ngx-icon-lib/icons/**/*.svg"
+    ],
+    "outputDirectory": "./projects/ngx-icon-lib/src/lib",
+    "interfaceName": "NgxIcon",
+    "typeName": "ngxIcon",
+    "prefix": "ic",
+    "svgoConfig": {
+      "plugins": [
+        "cleanupAttrs"
+      ]
+    },
+    "fileName": "ngx-icons",
+    "additionalModelOutputPath": "./projects/ngx-icon-lib/src/lib",
+    "compileSources": true
   },
   "private": true,
   "dependencies": {
@@ -19,10 +38,11 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
+    "tslib": "^2.6.2",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^17.1.0",
     "@angular/cli": "^17.1.0",
     "@angular/compiler-cli": "^17.1.0",
     "@types/jasmine": "~5.1.0",
@@ -32,6 +52,11 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.3.2"
+    "ng-packagr": "^17.1.0",
+    "svg-to-ts": "^11.0.1",
+    "typescript": "^5.3.3"
+  },
+  "volta": {
+    "node": "20.11.0"
   }
 }

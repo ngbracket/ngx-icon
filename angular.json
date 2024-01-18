@@ -3,5 +3,120 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-icon-demo-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-icon-demo-app",
+      "sourceRoot": "projects/ngx-icon-demo-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/ngx-icon-demo-app",
+            "index": "projects/ngx-icon-demo-app/src/index.html",
+            "browser": "projects/ngx-icon-demo-app/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/ngx-icon-demo-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-icon-demo-app/src/favicon.ico",
+              "projects/ngx-icon-demo-app/src/assets"
+            ],
+            "styles": ["projects/ngx-icon-demo-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "ngx-icon-demo-app:build:production"
+            },
+            "development": {
+              "buildTarget": "ngx-icon-demo-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "ngx-icon-demo-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/ngx-icon-demo-app/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-icon-demo-app/src/favicon.ico",
+              "projects/ngx-icon-demo-app/src/assets"
+            ],
+            "styles": ["projects/ngx-icon-demo-app/src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "ngx-icon-lib": {
+      "projectType": "library",
+      "root": "projects/ngx-icon-lib",
+      "sourceRoot": "projects/ngx-icon-lib/src",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-icon-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-icon-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-icon-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngx-icon-lib/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    }
   }
 }
